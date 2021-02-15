@@ -1,0 +1,874 @@
+<script type="text/javascript" crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script type="text/javascript" crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+<style>
+#cstr {
+  font-family: 'Roboto', sans-serif;
+}
+</style>
+<div id="cstr"></div>
+<script type="text/babel">
+
+  // celestaver 2020
+  // version 1.0 by ecmascript6 & react.js
+  // prod by nik shipov | Nikname913 on Github
+
+  // -----
+  // служебные объекты
+  // -----
+
+  const appBlock = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "absolute",
+    width: "400px",
+    height: "100%",
+    top: "0",
+    left: "0",
+    backgroundColor: "#C7C7C7",
+    boxShadow: "0px 0px 5px grey",
+    overflow: 'hidden',
+    borderRadius: '0px'
+  }
+  const appBlockTarget = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "absolute",
+    width: "400px",
+    height: "100%",
+    top: "0",
+    left: "0",
+    marginLeft: '420px',
+    backgroundColor: "#C7C7C7",
+    boxShadow: "0px 0px 5px grey",
+    overflow: 'hidden',
+    borderRadius: '0px'
+  }
+  const appBlockTopMenu = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "absolute",
+    width: "100%",
+    height: "60px",
+    top: "0",
+    left: "0",
+    borderBottom: "2px solid white",
+    lineHeight: "60px",
+    paddingLeft: "14px"
+  }
+  const appBlockTargetTopMenu = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "absolute",
+    width: "100%",
+    height: "60px",
+    top: "0",
+    left: "0",
+    borderBottom: "2px solid white",
+    lineHeight: "60px",
+    paddingLeft: "14px",
+    fontSize: '13px',
+    fontStyle: 'italic'
+  }
+  const appBlockTopMenuSpan = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "absolute",
+    width: "30px",
+    height: "30px",
+    borderRadius: "50%",
+    border: "1px solid white",
+    top: "50%",
+    marginTop: "-16px",
+    left: "100%",
+    marginLeft: "-58px"
+  }
+  const appBlockTopMenuSpanTwo = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "absolute",
+    width: "30px",
+    height: "30px",
+    borderRadius: "50px",
+    border: "1px solid white",
+    top: "50%",
+    marginTop: "-16px",
+    left: "100%",
+    marginLeft: "-102px"
+  }
+  const appBlockMainGoalsWindow = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "relative",
+    width: "100%",
+    height: "auto",
+    minHeight: '300px',
+    borderBottom: "2px solid white",
+    marginTop: "80px",
+    paddingBottom: '20px'
+  }
+  const appBlockMainGoalsWindowScroll = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "relative",
+    width: "110%",
+    height: "500px",
+    borderBottom: "2px solid white",
+    marginTop: "80px",
+    paddingBottom: '20px',
+    overflowY: 'scroll',
+    overflowX: 'hidden'
+  }
+  const appBlockMainGoalsWindowLine = {
+    display: 'block',
+    position: 'relative',
+    width: '100%',
+    height: 'auto',
+    fontSize: '12px'
+  }
+  const appBlockMainGoalsWindowLineDeleteGoal = {
+    display: 'block',
+    position: 'absolute',
+    width: '16px',
+    height: '16px',
+    borderRadius: '50%',
+    border: '1px solid grey',
+    left: '100%',
+    marginLeft: '-52px',
+    top: '0',
+    marginTop: '11px',
+    cursor: 'pointer'
+  }
+  const alert = {
+    display: 'block',
+    position: 'absolute',
+    width: '100%',
+    height: '100vh',
+    backgroundColor: 'rgba(105,105,105,0.5)',
+    top: '0',
+    left: '0',
+    zIndex: '10'
+  }
+  const alertMes = {
+    display: 'block',
+    position: 'absolute',
+    width: '240px',
+    height: 'auto',
+    minHeight: '40px',
+    borderRadius: '5px',
+    backgroundColor: 'white',
+    color: 'grey',
+    left: '50%',
+    marginLeft: '-120px',
+    top: '200px',
+    boxSizing: 'border-box',
+    padding: '18px',
+    paddingTop: '16px',
+    paddingBottom: '17px',
+    paddingLeft: '20px',
+    paddingRight: '24px',
+    lineHeight: '18px',
+    fontSize: '13px'
+  }
+  const targetElem = {
+    display: 'block',
+    position: 'relative',
+    width: '100%',
+    height: 'auto',
+    margin: '0 auto',
+    minHeight: '40px',
+    borderTop: '2px solid red',
+    borderBottom: '2px solid red',
+    paddingLeft: '14px',
+    paddingRight: '16px',
+    paddingTop: '6px',
+    paddingBottom: '5px',
+    boxSizing: 'border-box',
+    lineHeight: '20px',
+    backgroundColor: 'rgb(199, 199, 199)'
+  }
+  const targetElems = {
+    display: 'block',
+    position: 'relative',
+    width: '100%',
+    height: 'auto',
+    margin: '0 auto',
+    minHeight: '40px',
+    borderTop: '2px solid red',
+    borderBottom: '2px solid red',
+    paddingLeft: '14px',
+    paddingRight: '16px',
+    paddingTop: '6px',
+    paddingBottom: '5px',
+    boxSizing: 'border-box',
+    lineHeight: '20px',
+    marginTop: '20px',
+  }
+  const targetElemGoalInput = {
+    display: 'block',
+    position: 'relative',
+    width: '80%',
+    height: '40px',
+    fontSize: '13px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    outline: 'none',
+    borderTop: '2px solid white',
+    textAlign: 'center',
+    padding: '0',
+    paddingTop: '2px',
+    marginLeft: '10%'
+  }
+  const targetElemGoalAdd = {
+    display: 'block',
+    position: 'relative',
+    width: '220px',
+    height: '40px',
+    borderRadius: '5px',
+    border: '1px solid red',
+    marginTop: '5px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: '14px',
+    textAlign: 'center',
+    lineHeight: '40px',
+    cursor: 'pointer',
+    fontSize: '11px'
+  }
+  const goalsCounter = {
+    display: 'block',
+    position: 'absolute',
+    width: '40px',
+    height: '40px',
+    borderRadius: '5px',
+    border: '2px solid grey',
+    left: '100%',
+    marginLeft: '-60px',
+    top: '100%',
+    marginTop: '20px',
+    textAlign: 'center',
+    fontSize: '16px',
+    lineHeight: '42px',
+    cursor: 'pointer'
+  }
+  const goalsCounterMarker = {
+    display: 'block',
+    position: 'absolute',
+    width: '10px',
+    height: '10px',
+    backgroundColor: 'red',
+    borderRadius: '50%',
+    top: '0',
+    marginTop: '-5px',
+    left: '100%',
+    marginLeft: '-5px'
+  } 
+  const startMes = {
+    display: 'block',
+    position: 'absolute',
+    width: '300px',
+    height: 'auto',
+    lineHeight: '18px',
+    fontSize: '13px',
+    color: 'grey',
+    textAlign: 'center',
+    marginLeft: '50px'
+  }
+  const addButtonsGroup = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: '60px',
+    width: '300px',
+    border: '1px dashed grey',
+    borderRadius: '10px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '14px',
+    paddingLeft: '12px',
+    paddingRight: '12px',
+    boxSizing: 'border-box'
+  }
+  const addButtonsGroupPublic = {
+    display: 'block',
+    position: 'relative',
+    width: '129px',
+    height: '36px',
+    border: '1px solid green',
+    borderRadius: '5px',
+    lineHeight: '36px',
+    fontSize: '11px',
+    textAlign: 'center',
+    cursor: 'pointer'
+  }
+
+  const clases = {
+    appBlock: "appBlock",
+    appBlockTopMenu: "appBlockTopMenu",
+    appBlockTopMenuSpan: "appBlockTopMenuSpan",
+    appBlockTopMenuSpanTwo: "appBlockTopMenuSpanTwo",
+    appBlockMainGoalsWindow: "appBlockMainGoalsWindow"
+  }
+
+  //
+  // vanillaJS
+  //
+
+  //
+  // goalsMaker
+  //
+
+const attrChecker = (itemDomAttrs, elementAttrs) => {
+
+let checkCount = elementAttrs.length;
+let check = 0;
+
+for ( let i = 0; i < elementAttrs.length; i++ ) {
+
+    let name = elementAttrs[i].split('::')[0];
+    let value = elementAttrs[i].split('::')[1];
+
+    for ( let ii = 0; ii < itemDomAttrs.length; ii++ ) {
+
+        if ( itemDomAttrs[ii].name == name && itemDomAttrs[i].value == value ) {
+            check++;
+        }
+
+    }
+
+}
+
+if ( check == checkCount ) {
+
+    return true;
+
+} else { return false; }
+
+}
+
+const cstrGoalsMaker = (data) => {
+
+let newData = data; // получаем массив с целями извне, newData - данный массив
+
+newData.forEach(
+    (element, index) => {
+        
+        if ( (index + 1) % 2 !== 0 ) { 
+
+            // в массиве целей по порядку идут: пакет характеристик элемента под цель
+            // и следующим элементом - название цели для этого элемента
+            // newData[0] - пакет, newData[1] - название цели, newData[2] - пакет, newData[3] - название цели и т.д.
+            // если элемент newData нечетный - (index + 1) % 2 !== 0 - то это пакет и далее он перебирается
+
+            let goalName = newData[index + 1]; // сюда записываем четный элемент, следующий за пакетом, goalName - название каждой цели
+            let DOM = document.querySelectorAll(element.tagname);
+
+            for ( let i = 0; i < DOM.length; i++ ) {
+
+                let itemDom = DOM[i];
+                let itemDomAttrs = itemDom.attributes;
+                let elementAttrs = element.attr;
+
+                let check = attrChecker(itemDomAttrs, elementAttrs);
+
+                if ( check === true ) {
+                    if ( element.inner === undefined ) {
+                        itemDom.setAttribute('onclick', `yaCounter0000000.reachGoal(${goalName})`);
+                    } else {
+                        if ( itemDom.innerHTML.trim() === element.inner ) {
+                          itemDom.setAttribute('onclick', `yaCounter0000000.reachGoal(${goalName})`);
+                        }
+                    }
+                } 
+
+            }
+
+        }
+
+    }
+);
+
+}
+
+let round = setInterval(() => {
+
+  let lst = localStorage.getItem('exportGoalData');
+  if ( lst !== '' ) {
+
+    let data = JSON.parse(localStorage.getItem('exportGoalData'));
+    cstrGoalsMaker(data);
+    clearInterval(round);
+
+  }
+
+}, 1000);
+
+  //
+  // goalsMaker
+  //
+
+  let outerPart = () => {
+    let pastLogic = new Promise((res, err) => {
+      
+      let start = setInterval(() => {
+        let starting = localStorage.getItem('cstr');
+        if ( starting == 'ready' ) {
+          clearInterval(start);
+          res('ready');
+        }
+        else {
+          //
+        }
+      }, 40);
+
+    });
+
+    pastLogic
+    .then(answer => {
+      const answ = answer;
+      if ( answ == 'ready' ) { 
+
+        document.oncontextmenu = () => false;
+        let DOM = document.body.querySelectorAll('*');
+        for ( let i = 0; i < DOM.length; i++ ) {
+          DOM[i].oncontextmenu = (e) => {
+            let domItem = {}
+            let itemAttr = [...e.target.attributes];
+            let itemArrItem = [];
+            itemAttr.forEach(item => {
+              if ( item.name != 'style' ) {
+                itemArrItem.push(`${item.name}::${item.value}`);
+              }
+            });
+            domItem.attr = itemArrItem;
+            domItem.tagname = e.target.tagName;
+
+            if ( e.target.children.length == 0 && e.target.innerHTML != '' ) {
+              domItem.inner = e.target.innerHTML.toLowerCase();
+            }
+
+            if ( /* localStorage.getItem('nodeData') == 'null' */ true ) {
+              localStorage.setItem('nodeData', `${JSON.stringify(domItem)}`);
+            }
+            else {
+              let locNodeData = localStorage.getItem('nodeData');
+              localStorage.getItem('nodeData').indexOf(JSON.stringify(domItem)) == (-1) ? localStorage.setItem('nodeData', `${locNodeData}${JSON.stringify(domItem)}AND`) : null;
+            }
+            console.log(localStorage.getItem('nodeData')); 
+          }
+        }
+
+      }
+    })
+  }
+
+  outerPart();
+
+  //
+  // vanillaJS
+  //
+
+  class GoalsWindow extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        targetElem: JSON.parse(localStorage.getItem('nodeData')),
+        addedElems: 0,
+        goalsPack: [],
+        goalName: '',
+        startMessage: 'выберите элемент, на который хотите поставить цель, нажав на него правой кнопкой мыши',
+        popUpMessage: 'no message no message no message no message',
+        popUpShow: false
+      }
+    }
+
+    componentDidMount() {
+      let goalRound = setInterval(() => {
+        this.setState({
+          targetElem: JSON.parse(localStorage.getItem('nodeData'))
+        });
+      }, 100);
+    }
+
+    render = () => {
+
+      return(
+
+        <React.Fragment>
+
+        { this.state.popUpShow == true ? (
+
+          <section 
+            style={alert}
+            onClick={() => {
+
+              this.setState({
+                popUpShow: false,
+                popUpMessage: 'no message no message no message no message'
+              });
+
+            }}
+          >
+
+            <span style={alertMes}>{this.state.popUpMessage}</span>
+          
+          </section>
+
+        ) : null }
+
+        <div
+          className={clases.appBlockMainGoalsWindow}
+          style={appBlockMainGoalsWindow}
+        >
+
+        { this.state.targetElem.tagname == 'NULLNODE' ? (
+
+          <p style={startMes}>{this.state.startMessage}</p>
+
+        ) : null }
+
+        <span 
+          style={goalsCounter}
+          onClick={() => {
+
+            if ( this.state.addedElems != 0 ) {
+
+              //
+
+            } else {
+              
+              this.setState({
+                popUpShow: true,
+                popUpMessage: 'Список триггеров пуст. Вы не создали ни одной цели'
+              });
+
+            }
+
+          }}
+        >
+          
+          { this.state.addedElems }
+
+          { this.state.addedElems > 0 ? (
+
+            <span style={goalsCounterMarker}></span>
+
+          ) : null }
+
+        </span>
+
+        { this.state.targetElem.tagname != 'NULLNODE' ? (
+          
+          <React.Fragment>
+          <div style={targetElem}>
+            <p>{this.state.targetElem.tagname}</p>
+            <p>{this.state.targetElem.attr.map(
+              attribute => {
+                if ( attribute.split('::')[0] !== 'style' ) { 
+                  return(
+                    <p>{`${attribute.split('::')[0]}`} - <span>{`${attribute.split('::')[1]}`}</span></p>
+                  )
+                }
+              }
+            )}</p> 
+            <input 
+              style={targetElemGoalInput}
+              type="text"
+              placeholder="Идентификатор цели"
+              maxlength="13"
+              onKeyUp={(e) => {
+                let tval = e.target.value;
+                this.setState({
+                  goalName: tval
+                });
+              }}
+            /> 
+            <span
+              style={targetElemGoalAdd}
+              onClick={() => {
+
+                if ( this.state.goalName.length > 4 ) {
+
+                let goalData = JSON.parse(localStorage.getItem('nodeData'));
+                if ( goalData.tagname != 'NULLNODE' ) {
+
+                  let locGoalsPack = this.state.goalsPack;
+                  let addCorrect = true;
+
+                  locGoalsPack.forEach(item => {
+                    if ( item == this.state.goalName ) {
+
+                      addCorrect = false;
+                      this.setState({
+                        popUpShow: true,
+                        popUpMessage: 'Цель с таким ID уже создана, введите другой ID'
+                      });
+
+                    } 
+                  });
+
+                  if ( addCorrect == true ) {
+
+                    locGoalsPack.push(goalData);
+                    locGoalsPack.push(this.state.goalName);
+                    localStorage.setItem('nodeData', '{"attr":["class::appBlock"],"tagname":"NULLNODE"}');
+                    this.setState({
+                      addedElems: this.state.addedElems + 1,
+                      goalsPack: locGoalsPack,
+                      goalName: ''
+                    });
+                    
+                    this.props.goalsTransport(locGoalsPack);
+
+                  }
+
+                  console.log(this.state.goalsPack);
+                } 
+
+                else {
+                  //
+                }
+
+                } else {
+
+                  this.setState({
+
+                    popUpShow: true,
+                    popUpMessage: 'Введите ID цели, длиной не менее 5 знаков'
+
+                  });
+
+                }
+
+              }}
+            >
+              ДОБАВИТЬ
+            </span>
+          </div>
+          <div style={targetElems}></div>
+          </React.Fragment>
+
+        ) : null }
+
+        </div>
+
+        </React.Fragment>
+
+      );
+    }
+  }
+
+  class Celestaver extends React.Component {
+    constructor(props) {
+      
+      super(props);
+
+      this.state = {
+        goalsPackParent: [],
+        showGoal1: false,
+        showGoal2: false,
+        showGoal3: false,
+        showGoal4: false,
+        showGoal5: false,
+        showGoal6: false,
+        showGoal7: false,
+        showGoal8: false,
+        showGoal9: false,
+        showGoal10: false
+      }
+
+    }
+
+    testFunc = () => {
+      this.setState({
+        showGoal1: !this.state.showGoal1
+      });
+    }
+
+    componentWillMount() {
+      localStorage.setItem('cstr', 'start');
+    }
+
+    componentDidMount() {
+      localStorage.setItem('cstr', 'ready');
+      localStorage.setItem('exportGoalData', '');
+      localStorage.removeItem('nodeData');
+      if ( localStorage.getItem('nodeData') == null ) {
+        localStorage.setItem('nodeData', '{"attr":["class::appBlock"],"tagname":"NULLNODE"}');
+        console.log(localStorage.getItem('nodeData'));
+      }
+    }
+
+    setGoalsState = (value) => {
+
+      this.setState({
+        goalsPackParent: value
+      });
+
+      console.log('goals transport');
+
+    }
+
+    render = () => {
+      return(
+
+        <React.Fragment>
+
+        <section
+          className={clases.appBlock}
+          style={appBlock}
+        >
+          <div
+            className={clases.appBlockTopMenu}
+            style={appBlockTopMenu}
+          >
+          celestaver
+            <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
+            <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
+          </div>
+          <GoalsWindow goalsTransport={this.setGoalsState}></GoalsWindow>
+        </section>
+
+        <section
+          className={clases.appBlock}
+          style={appBlockTarget}
+        >
+          <div
+            className={clases.appBlockTopMenu}
+            style={appBlockTargetTopMenu}
+          >
+          список созданных целей
+            <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
+            <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
+          </div>
+          
+          <div
+            style={appBlockMainGoalsWindowScroll}
+          >
+          { 0 === 0 ? this.state.goalsPackParent.map(function(item, i) {
+
+            // console.log(item);
+
+            return(
+              <article
+                style={appBlockMainGoalsWindowLine}
+              >
+                { (i + 1) % 2 === 0 ? (
+                
+                  <p 
+                    style={{ 
+                      marginBottom: '0px', 
+                      marginTop: '0px',
+                      height: '38px',
+                      lineHeight: '37px',
+                      width: '160px',
+                      border: '1px dashed grey',
+                      borderTop: 'none',
+                      'border-bottom-right-radius': '30px',
+                      'border-bottom-left-radius': '30px',
+                      textAlign: 'center',
+                      marginLeft: '14px',
+                      marginBottom: '12px'
+                    }}
+                  >
+                    {item}
+                  </p>
+              
+                ) : (
+
+                  <p 
+                    style={{ 
+                      marginBottom: '0px', 
+                      marginTop: '0px',
+                      height: 'auto',
+                      lineHeight: '38px',
+                      paddingLeft: '12px',
+                      borderTop: '1px dashed grey',
+                      borderBottom: '1px dashed grey'
+                    }}
+                  >
+                    <span
+                      style={{
+                        cursor: 'pointer'
+                      }}
+                      onClick={this.testFunc}
+                    >
+                      
+                      { this.state.showGoal1 === false ? ('Подробный вид') : ('Общий вид') }
+
+                    </span>
+                    
+                    { this.state.showGoal1 === true ? (
+
+                      <article
+                        style={{
+                          display: 'block',
+                          position: 'relative',
+                          width: '100%',
+                          height: 'auto',
+                          minHeight: '30px',
+                          borderTop: '1px dashed grey',
+                          marginLeft: '-12px',
+                          marginTop: '0.5px'
+                        }}  
+                      >
+                        <p style={{ lineHeight: '18px', border: '1px dashed grey' }}>{item.tagname}</p>
+                        
+                        { item.attr.map(attrs => {
+                          return(
+
+                            <p style={{ lineHeight: '18px', border: '1px dashed grey' }}>{`${attrs.split("::")[0]} - ${attrs.split("::")[1]}`}</p>
+                          
+                          );
+                        }) }
+                        
+                        { item.inner !== undefined ? (
+                          
+                          <p style={{ lineHeight: '18px', border: '1px dashed grey' }}>{`Иннер - ${item.inner}`}</p>
+
+                        ) : null }
+
+                      </article>
+
+                    ) : null }
+                    
+                    <span 
+                      style={appBlockMainGoalsWindowLineDeleteGoal}
+                      onClick={() => {}}
+                    ></span>
+                  </p>
+
+                ) }
+              </article>
+            );
+
+          }, this) : null }
+          </div>
+
+          <div style={addButtonsGroup}>
+            <span 
+              style={addButtonsGroupPublic}
+              onClick={() => {
+                console.log(JSON.stringify(this.state.goalsPackParent));
+                localStorage.setItem('exportGoalData', JSON.stringify(this.state.goalsPackParent));
+              }}
+            >
+              ОПУБЛИКОВАТЬ
+            </span>
+            <span style={addButtonsGroupPublic}>ПОЛУЧИТЬ КОД</span>  
+          </div>
+
+        </section>
+
+        </React.Fragment>
+
+      );
+    }
+  }
+  ReactDOM.render(
+    <Celestaver />,
+    document.getElementById('cstr')
+  );
+
+</script>
