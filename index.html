@@ -319,12 +319,12 @@
   // goalsMaker
   //
 
-const attrChecker = (itemDomAttrs, elementAttrs) => {
+  const attrChecker = (itemDomAttrs, elementAttrs) => {
 
-let checkCount = elementAttrs.length;
-let check = 0;
+  let checkCount = elementAttrs.length;
+  let check = 0;
 
-for ( let i = 0; i < elementAttrs.length; i++ ) {
+  for ( let i = 0; i < elementAttrs.length; i++ ) {
 
     let name = elementAttrs[i].split('::')[0];
     let value = elementAttrs[i].split('::')[1];
@@ -337,21 +337,21 @@ for ( let i = 0; i < elementAttrs.length; i++ ) {
 
     }
 
-}
+  }
 
-if ( check == checkCount ) {
+  if ( check == checkCount ) {
 
     return true;
 
-} else { return false; }
+  } else { return false; }
 
-}
+  }
 
-const cstrGoalsMaker = (data) => {
+  const cstrGoalsMaker = (data) => {
 
-let newData = data; // получаем массив с целями извне, newData - данный массив
+  let newData = data; // получаем массив с целями извне, newData - данный массив
 
-newData.forEach(
+  newData.forEach(
     (element, index) => {
         
         if ( (index + 1) % 2 !== 0 ) { 
@@ -387,22 +387,22 @@ newData.forEach(
         }
 
     }
-);
-
-}
-
-let round = setInterval(() => {
-
-  let lst = localStorage.getItem('exportGoalData');
-  if ( lst !== '' ) {
-
-    let data = JSON.parse(localStorage.getItem('exportGoalData'));
-    cstrGoalsMaker(data);
-    clearInterval(round);
+  );
 
   }
 
-}, 1000);
+  let round = setInterval(() => {
+
+    let lst = localStorage.getItem('exportGoalData');
+    if ( lst !== '' ) {
+
+      let data = JSON.parse(localStorage.getItem('exportGoalData'));
+      cstrGoalsMaker(data);
+      clearInterval(round);
+
+    }
+
+  }, 1000);
 
   //
   // goalsMaker
