@@ -324,6 +324,8 @@
   let checkCount = elementAttrs.length;
   let check = 0;
 
+  if ( elementAttrs.length > 0 ) { 
+
   for ( let i = 0; i < elementAttrs.length; i++ ) {
 
     let name = elementAttrs[i].split('::')[0];
@@ -337,13 +339,35 @@
 
     }
 
+    if ( check == checkCount ) {
+
+      return true;
+
+    } else { return false; }
+
   }
 
-  if ( check == checkCount ) {
+  } else {
 
-    return true;
+    if ( itemDomAttrs.length === 0 ) {
 
-  } else { return false; }
+      return 0;
+
+    } else {
+
+      // костыль для style
+
+      if ( itemDomAttrs.length === 1 ) {
+        if ( itemDomAttrs[0].name == 'style' ) {
+          return 0;
+        }
+      }
+
+      // костыль для style
+
+    }
+
+  }
 
   }
 
@@ -372,15 +396,27 @@
 
                 let check = attrChecker(itemDomAttrs, elementAttrs);
 
+                console.log(`check - ${check}`);
+
                 if ( check === true ) {
                     if ( element.inner === undefined ) {
                         itemDom.setAttribute('onclick', `yaCounter0000000.reachGoal(${goalName})`);
                     } else {
-                        if ( itemDom.innerHTML.trim() === element.inner ) {
+                        if ( itemDom.innerHTML.trim().toLowerCase() === element.inner ) {
                           itemDom.setAttribute('onclick', `yaCounter0000000.reachGoal(${goalName})`);
                         }
                     }
-                } 
+                } else if ( check === 0 ) {
+
+                    if ( element.inner === undefined ) {
+                        console.warn(`Мало данных для нацеливания по цели ${goalName}, попробуйте другой элемент или добавьте текст или свойства в текущий элемент`);
+                    } else {
+                        if ( itemDom.innerHTML.trim().toLowerCase() === element.inner ) {
+                          itemDom.setAttribute('onclick', `yaCounter0000000.reachGoal(${goalName})`);
+                        }
+                    }
+
+                }
 
             }
 
@@ -391,7 +427,7 @@
 
   }
 
-  /* let round = setInterval(() => {
+  let round = setInterval(() => {
 
     let lst = localStorage.getItem('exportGoalData');
     if ( lst !== '' ) {
@@ -402,7 +438,7 @@
 
     }
 
-  }, 1000); */
+  }, 1000);
 
   //
   // goalsMaker
