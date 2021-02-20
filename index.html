@@ -1,6 +1,17 @@
 <script type="text/javascript" crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 <script type="text/javascript" crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+<link 
+  rel="stylesheet" 
+  href="//stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
+  integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
+  crossorigin="anonymous"
+>
+<script 
+  src="//stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" 
+  integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" 
+  crossorigin="anonymous"
+></script>
 <style>
 #cstr {
   font-family: 'Roboto', sans-serif;
@@ -43,6 +54,31 @@
     boxShadow: "0px 0px 5px grey",
     overflow: 'hidden',
     borderRadius: '0px'
+  }
+  const appBlockAuth = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "absolute",
+    width: "400px",
+    height: "100%",
+    top: "0",
+    left: "0",
+    marginLeft: '840px',
+    backgroundColor: "#C7C7C7",
+    boxShadow: "0px 0px 5px grey",
+    overflow: 'hidden',
+    borderRadius: '0px'
+  }
+  const appBlockAuthForm = {
+    display: 'none',
+    position: 'relative',
+    width: '320px',
+    height: 'auto',
+    minHeight: '100px',
+    borderRadius: '10px',
+    border: '1px dashed grey',
+    marginTop: '100px',
+    marginLeft: '38px'
   }
   const appBlockTopMenu = {
     boxSizing: "border-box",
@@ -302,6 +338,19 @@
     textAlign: 'center',
     cursor: 'pointer'
   }
+  const addButtonsGroupReg = {
+    display: 'block',
+    position: 'relative',
+    width: '129px',
+    height: '36px',
+    border: '1px solid green',
+    borderRadius: '5px',
+    lineHeight: '37px',
+    fontSize: '11px',
+    textAlign: 'center',
+    cursor: 'pointer',
+    marginTop: '20px'
+  }
 
   const clases = {
     appBlock: "appBlock",
@@ -427,14 +476,14 @@
 
   }
 
-  let round = setInterval(() => {
+  let roundLocal = setInterval(() => {
 
     let lst = localStorage.getItem('exportGoalData');
     if ( lst !== '' ) {
 
       let data = JSON.parse(localStorage.getItem('exportGoalData'));
       cstrGoalsMaker(data);
-      clearInterval(round);
+      clearInterval(roundLocal);
 
     }
 
@@ -887,14 +936,78 @@
               onClick={() => {
                 console.log(JSON.stringify(this.state.goalsPackParent));
                 localStorage.setItem('exportGoalData', JSON.stringify(this.state.goalsPackParent));
+
+                fetch(`http://celestaver.space/?data=${JSON.stringify(this.state.goalsPackParent)}`, 
+                
+                /*
+                {
+                  method: 'POST',
+                  body: { 
+                    
+                    "data": JSON.stringify(this.state.goalsPackParent) 
+                  
+                  }
+                }
+                */
+
+                )
+                .then(answer => answer.text())
+                .then(data => {
+
+                  console.log(data);
+
+                })
+
               }}
             >
               ОПУБЛИКОВАТЬ
             </span>
-            <span style={addButtonsGroupPublic}>ПОЛУЧИТЬ КОД</span>  
+            <span 
+              style={addButtonsGroupPublic}
+              onClick={() => {
+                //
+              }}
+            >
+              РЕГИСТРАЦИЯ
+            </span>  
           </div>
 
         </section>
+
+        <section
+          className={clases.appBlock}
+          style={appBlockAuth}
+        >
+          <div
+            className={clases.appBlockTopMenu}
+            style={appBlockTargetTopMenu}
+          >
+          создание учетной записи
+            <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
+            <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
+          </div>
+
+          <div style={appBlockAuthForm}>
+          
+            <input 
+              type="text"
+              placeholder="Придумайте логин"
+            />
+            <input 
+              type="text"
+              placeholder="Придумайте пароль"
+            />
+            
+            <input
+              type="checkbox"
+              checked="false"
+            />
+
+            <span style={addButtonsGroupReg}>ГОТОВО</span>
+            
+          </div>
+
+        </section> 
 
         </React.Fragment>
 
