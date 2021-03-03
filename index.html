@@ -70,7 +70,7 @@
     borderRadius: '0px'
   }
   const appBlockAuthForm = {
-    display: 'none',
+    display: 'block',
     position: 'relative',
     width: '320px',
     height: 'auto',
@@ -78,7 +78,21 @@
     borderRadius: '10px',
     border: '1px dashed grey',
     marginTop: '100px',
-    marginLeft: '38px'
+    marginLeft: '38px',
+    boxSizing: 'border-box',
+    padding: '14px'
+  }
+  const appBlockAuthFormTextInput = {
+    display: 'block',
+    position: 'relative',
+    width: '100%',
+    height: '40px',
+    outline: 'none',
+    border: '1px solid grey',
+    borderRadius: '5px',
+    marginBottom: '10px',
+    fontSize: '13px',
+    paddingLeft: '12px'
   }
   const appBlockTopMenu = {
     boxSizing: "border-box",
@@ -476,6 +490,18 @@
 
   }
 
+  let testRound = setInterval(() => {
+
+    let ls = localStorage.getItem('cstrhash');
+    if ( ls !== null && ls !== '' ) {
+
+      console.log(localStorage.getItem('cstrhash'))
+      clearInterval(testRound);
+
+    }
+
+  }, 100);
+
   let roundLocal = setInterval(() => {
 
     let lst = localStorage.getItem('exportGoalData');
@@ -625,7 +651,7 @@
               
               this.setState({
                 popUpShow: true,
-                popUpMessage: 'Список триггеров пуст. Вы не создали ни одной цели'
+                popUpMessage: 'Список триггеров пуст. Вы не создали ни одной цели. Выберите нужный элемент на сайте, заполните поле с ID цели и попробуйте снова'
               });
 
             }
@@ -687,7 +713,7 @@
                       addCorrect = false;
                       this.setState({
                         popUpShow: true,
-                        popUpMessage: 'Цель с таким ID уже создана, введите другой ID'
+                        popUpMessage: 'Цель с таким ID уже создана, введите другой ID. Идентификатор должен быть уникальным для корректного сбора статистики'
                       });
 
                     } 
@@ -720,7 +746,7 @@
                   this.setState({
 
                     popUpShow: true,
-                    popUpMessage: 'Введите ID цели, длиной не менее 5 знаков'
+                    popUpMessage: 'Введите ID цели, длиной не менее 5 знаков. Идентификатор это уникальное имя цели в Метрике, по нему распределяются данные'
 
                   });
 
@@ -760,7 +786,15 @@
         showGoal7: false,
         showGoal8: false,
         showGoal9: false,
-        showGoal10: false
+        showGoal10: false,
+        login: '',
+        password: '',
+        authButton: false,
+        authShow: false,
+        authCorrect: false,
+        popUpShow: false,
+        popUpMessage: 'no message no message no message no message',
+        publicButtonInner: 'ОПУБЛИКОВАТЬ'
       }
 
     }
@@ -934,50 +968,92 @@
             <span 
               style={addButtonsGroupPublic}
               onClick={() => {
-                console.log(JSON.stringify(this.state.goalsPackParent));
+
+                // console.log(JSON.stringify(this.state.goalsPackParent));
                 localStorage.setItem('exportGoalData', JSON.stringify(this.state.goalsPackParent));
 
-                fetch(`http://celestaver.space/?data=${JSON.stringify(this.state.goalsPackParent)}`, 
-                
-                /*
-                {
-                  method: 'POST',
-                  body: { 
+                if ( localStorage.getItem('cstrhash') == null || localStorage.getItem('cstrhash') == '' ) {
+
+                  this.setState({
+                    authButton: true,
+                    publicButtonInner: 'AUTH ERROR'
+                  });
+
+                } else {
+
+                  /* fetch(`http://cq52508.tmweb.ru/celestaver/get.php?data=${localStorage.getItem('cstrhash')}`)
+                  .then(res => res.text())
+                  .then(data => {
+
+                    console.log(data);
+
+                  }) */
+
+                  // console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent`);
+
+                  fetch(`http://cq52508.tmweb.ru/celestaver/add.php?data=${localStorage.getItem('cstrhash')}::${JSON.stringify(this.state.goalsPackParent)}`)
+                  .then(res => res.text())
+                  .then(data => {
                     
-                    "data": JSON.stringify(this.state.goalsPackParent) 
+                    //
                   
-                  }
+                  })
+
                 }
-                */
-
-                )
-                .then(answer => answer.text())
-                .then(data => {
-
-                  console.log(data);
-
-                })
 
               }}
             >
-              ОПУБЛИКОВАТЬ
+              { this.state.publicButtonInner }
             </span>
+
+            { this.state.authButton === true ? (
+
             <span 
               style={addButtonsGroupPublic}
               onClick={() => {
-                //
+                
+                this.setState({
+                  authShow: true
+                });
+
               }}
             >
               РЕГИСТРАЦИЯ
             </span>  
+
+            ) : null }
+
           </div>
 
         </section>
+
+        { this.state.authShow === true ? (
 
         <section
           className={clases.appBlock}
           style={appBlockAuth}
         >
+
+          { this.state.popUpShow === true ? (
+
+          <section 
+            style={alert}
+            onClick={() => {
+
+              this.setState({
+                popUpShow: false,
+                popUpMessage: 'no message no message no message no message'
+              });
+
+            }}
+          >
+
+            <span style={alertMes}>{this.state.popUpMessage}</span>
+          
+          </section>
+
+          ) : null }
+
           <div
             className={clases.appBlockTopMenu}
             style={appBlockTargetTopMenu}
@@ -987,27 +1063,120 @@
             <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
           </div>
 
+          { this.state.authCorrect === false ? (
+
+          <React.Fragment>
+
           <div style={appBlockAuthForm}>
           
             <input 
+              style={appBlockAuthFormTextInput}
               type="text"
-              placeholder="Придумайте логин"
+              placeholder="create login*"
+              onKeyUp={(e) => {
+                this.setState({
+                  login: e.target.value
+                });
+              }}
             />
             <input 
+              style={appBlockAuthFormTextInput}
               type="text"
-              placeholder="Придумайте пароль"
+              placeholder="create password*"
+              onKeyUp={(e) => {
+                this.setState({
+                  password: e.target.value
+                });
+              }}
             />
             
-            <input
-              type="checkbox"
-              checked="false"
-            />
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                marginTop: '17px'
+              }} 
+            >
+              <input
+                style={{
+                  display: 'block',
+                  width: '16px',
+                  height: '16px',
+                  borderRadius: '50%',
+                  cursor: 'pointer'
+                }}
+                type="checkbox"
+                checked="false"
+              />
+              <span
+                style={{
+                  display: 'block',
+                  fontSize: '13px',
+                  marginTop: '1px',
+                  marginLeft: '4px',
+                  textDecoration: 'underline',
+                  cursor: 'pointer'
+                }}
+              >
+                Пользовательское соглашение
+              </span>
+            </div>
 
-            <span style={addButtonsGroupReg}>ГОТОВО</span>
+            <span 
+              style={addButtonsGroupReg}
+              onClick={() => {
+                
+                if (
+                  this.state.login !== '' &&
+                  this.state.password !== ''
+                ) {
+
+                let authData = `${this.state.login}::${this.state.password}`;
+                fetch(`http://cq52508.tmweb.ru/celestaver?data=${authData}`)
+                .then(res => res.text())
+                .then(data => {
+                
+                  if ( data.indexOf('true') !== (-1) ) {
+
+                    this.setState({
+                      // authCorrect: true
+                      authShow: false,
+                      authButton: false,
+                      publicButtonInner: 'ОПУБЛИКОВАТЬ'
+                    });
+
+                    const hashline = data.split('.')[1];
+                    localStorage.setItem('cstrhash', hashline);
+
+                  }
+
+                })
+
+                } else {
+
+                  this.setState({
+                    popUpShow: true,
+                    popUpMessage: 'Не все поля формы регистрации заполнены. Проверьте оба поля, они должны быть заполнены в соответствии с правилами'
+                  });
+
+                }
+
+              }}
+            >
+              ГОТОВО
+            </span>
             
           </div>
 
-        </section> 
+          </React.Fragment>          
+
+          ) : null }
+
+        </section>
+        
+        ) : null }
 
         </React.Fragment>
 
