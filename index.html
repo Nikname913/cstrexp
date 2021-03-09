@@ -1,17 +1,7 @@
 <script type="text/javascript" crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 <script type="text/javascript" crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
-<link 
-  rel="stylesheet" 
-  href="//stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
-  integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
-  crossorigin="anonymous"
->
-<script 
-  src="//stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" 
-  integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" 
-  crossorigin="anonymous"
-></script>
+<script type="text/javascript" src="http://cq52508.tmweb.ru/celestaver/goals.js"></script>
 <style>
 #cstr {
   font-family: 'Roboto', sans-serif;
@@ -168,6 +158,21 @@
     paddingBottom: '20px',
     overflowY: 'scroll',
     overflowX: 'hidden'
+  }
+  const appBlockMainGoalsWindowScrollAdded = {
+    display: 'block',
+    position: 'relative',
+    width: '362px',
+    height: 'auto',
+    minHeight: '100px',
+    backgroundColor: 'white',
+    marginLeft: '18px',
+    borderRadius: '5px',
+    padding: '12px',
+    paddingLeft: '16px',
+    lineHeight: '20px',
+    fontSize: '12px',
+    boxSizing: 'border-box'
   }
   const appBlockMainGoalsWindowLine = {
     display: 'block',
@@ -355,7 +360,7 @@
   const addButtonsGroupReg = {
     display: 'block',
     position: 'relative',
-    width: '129px',
+    width: '169px',
     height: '36px',
     border: '1px solid green',
     borderRadius: '5px',
@@ -364,6 +369,19 @@
     textAlign: 'center',
     cursor: 'pointer',
     marginTop: '20px'
+  }
+  const addButtonsGroupAuth = {
+    display: 'block',
+    position: 'relative',
+    width: '169px',
+    height: '36px',
+    border: '1px solid green',
+    borderRadius: '5px',
+    lineHeight: '37px',
+    fontSize: '11px',
+    textAlign: 'center',
+    cursor: 'pointer',
+    marginTop: '14px'
   }
 
   const clases = {
@@ -382,7 +400,7 @@
   // goalsMaker
   //
 
-  const attrChecker = (itemDomAttrs, elementAttrs) => {
+  /* const attrChecker = (itemDomAttrs, elementAttrs) => {
 
   let checkCount = elementAttrs.length;
   let check = 0;
@@ -459,7 +477,7 @@
 
                 let check = attrChecker(itemDomAttrs, elementAttrs);
 
-                console.log(`check - ${check}`);
+                // console.log(`check - ${check}`);
 
                 if ( check === true ) {
                     if ( element.inner === undefined ) {
@@ -472,7 +490,9 @@
                 } else if ( check === 0 ) {
 
                     if ( element.inner === undefined ) {
-                        console.warn(`Мало данных для нацеливания по цели ${goalName}, попробуйте другой элемент или добавьте текст или свойства в текущий элемент`);
+                        
+                      console.warn(`Мало данных для нацеливания по цели ${goalName}, попробуйте другой элемент или добавьте текст или свойства в текущий элемент`);
+                    
                     } else {
                         if ( itemDom.innerHTML.trim().toLowerCase() === element.inner ) {
                           itemDom.setAttribute('onclick', `yaCounter0000000.reachGoal(${goalName})`);
@@ -488,27 +508,31 @@
     }
   );
 
-  }
+  } */
 
-  let testRound = setInterval(() => {
+  let roundLocal = setInterval(() => {
+
+    // f2c57870308dc87f432e5912d4de6f8e322721ba785618
 
     let ls = localStorage.getItem('cstrhash');
     if ( ls !== null && ls !== '' ) {
 
-      console.log(localStorage.getItem('cstrhash'))
-      clearInterval(testRound);
+      fetch(`http://cq52508.tmweb.ru/celestaver/get.php?data=${localStorage.getItem('cstrhash')}`)
+      .then(res => res.text())
+      .then(data => {
 
-    }
+        // console.log(`${data} - данные с сервера, roundLocal`);
+        
+        let newData = JSON.parse(data);
+        cstrGoalsMaker(newData);
 
-  }, 100);
+      })
 
-  let roundLocal = setInterval(() => {
+      clearInterval(roundLocal);
 
-    let lst = localStorage.getItem('exportGoalData');
-    if ( lst !== '' ) {
+    } else {
 
-      let data = JSON.parse(localStorage.getItem('exportGoalData'));
-      cstrGoalsMaker(data);
+      console.log('Вы не авторизованы');
       clearInterval(roundLocal);
 
     }
@@ -566,7 +590,9 @@
               let locNodeData = localStorage.getItem('nodeData');
               localStorage.getItem('nodeData').indexOf(JSON.stringify(domItem)) == (-1) ? localStorage.setItem('nodeData', `${locNodeData}${JSON.stringify(domItem)}AND`) : null;
             }
-            console.log(localStorage.getItem('nodeData')); 
+
+            // console.log(localStorage.getItem('nodeData')); 
+          
           }
         }
 
@@ -726,7 +752,7 @@
                     localStorage.setItem('nodeData', '{"attr":["class::appBlock"],"tagname":"NULLNODE"}');
                     this.setState({
                       addedElems: this.state.addedElems + 1,
-                      goalsPack: locGoalsPack,
+                      // goalsPack: locGoalsPack,
                       goalName: ''
                     });
                     
@@ -734,7 +760,8 @@
 
                   }
 
-                  console.log(this.state.goalsPack);
+                  // console.log(this.state.goalsPack);
+                
                 } 
 
                 else {
@@ -777,6 +804,7 @@
 
       this.state = {
         goalsPackParent: [],
+        publicPack: '',
         showGoal1: false,
         showGoal2: false,
         showGoal3: false,
@@ -810,7 +838,7 @@
       localStorage.removeItem('nodeData');
       if ( localStorage.getItem('nodeData') == null ) {
         localStorage.setItem('nodeData', '{"attr":["class::appBlock"],"tagname":"NULLNODE"}');
-        console.log(localStorage.getItem('nodeData'));
+        // console.log(localStorage.getItem('nodeData'));
       }
     }
 
@@ -824,7 +852,7 @@
         goalsPackParent: value
       });
 
-      console.log('goals transport');
+      // console.log('goals transport');
 
     }
 
@@ -864,6 +892,15 @@
           <div
             style={appBlockMainGoalsWindowScroll}
           >
+
+          <div
+            style={appBlockMainGoalsWindowScrollAdded}
+          >
+            
+            { this.state.publicPack }
+            
+          </div>
+
           { 0 === 0 ? this.state.goalsPackParent.map(function(item, i) {
 
             // console.log(item);
@@ -970,6 +1007,7 @@
               onClick={() => {
 
                 // console.log(JSON.stringify(this.state.goalsPackParent));
+                
                 localStorage.setItem('exportGoalData', JSON.stringify(this.state.goalsPackParent));
 
                 if ( localStorage.getItem('cstrhash') == null || localStorage.getItem('cstrhash') == '' ) {
@@ -981,23 +1019,19 @@
 
                 } else {
 
-                  /* fetch(`http://cq52508.tmweb.ru/celestaver/get.php?data=${localStorage.getItem('cstrhash')}`)
-                  .then(res => res.text())
-                  .then(data => {
-
-                    console.log(data);
-
-                  }) */
-
                   // console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent`);
 
-                  fetch(`http://cq52508.tmweb.ru/celestaver/add.php?data=${localStorage.getItem('cstrhash')}::${JSON.stringify(this.state.goalsPackParent)}`)
+                  fetch(`http://cq52508.tmweb.ru/celestaver/add.php?data=${localStorage.getItem('cstrhash')}AND${JSON.stringify(this.state.goalsPackParent)}`)
                   .then(res => res.text())
                   .then(data => {
                     
                     //
                   
                   })
+
+                  this.setState({
+                    goalsPackParent: []
+                  });
 
                 }
 
@@ -1134,7 +1168,7 @@
                 ) {
 
                 let authData = `${this.state.login}::${this.state.password}`;
-                fetch(`http://cq52508.tmweb.ru/celestaver?data=${authData}`)
+                fetch(`http://cq52508.tmweb.ru/celestaver/index.php?data=${authData}`)
                 .then(res => res.text())
                 .then(data => {
                 
@@ -1165,7 +1199,44 @@
 
               }}
             >
-              ГОТОВО
+              ЗАРЕГИСТРИРОВАТЬСЯ
+            </span>
+            
+            <span 
+              style={addButtonsGroupAuth}
+              onClick={() => {
+                
+                if (
+                  this.state.login !== '' &&
+                  this.state.password !== ''
+                ) {
+
+                  fetch(`http://cq52508.tmweb.ru/celestaver/auth.php?data=${this.state.login}$$${this.state.password}`)
+                  .then(res => res.text())
+                  .then(data => {
+                    
+                    console.log(data);
+
+                    if ( data !== 'Неверные логин или пароль' ) {
+
+                      localStorage.setItem('cstrhash', data);
+
+                      this.setState({
+                        // authCorrect: true
+                        authShow: false,
+                        authButton: false,
+                        publicButtonInner: 'ОПУБЛИКОВАТЬ'
+                      });
+
+                    }
+
+                  })
+
+                }
+              
+              }}
+            >
+              АВТОРИЗОВАТЬСЯ
             </span>
             
           </div>
