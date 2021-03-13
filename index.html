@@ -170,9 +170,11 @@
     borderRadius: '5px',
     padding: '12px',
     paddingLeft: '16px',
+    paddingRight: '20px',
     lineHeight: '20px',
-    fontSize: '12px',
-    boxSizing: 'border-box'
+    fontSize: '11px',
+    boxSizing: 'border-box',
+    overflow: 'hidden'
   }
   const appBlockMainGoalsWindowLine = {
     display: 'block',
@@ -357,6 +359,20 @@
     textAlign: 'center',
     cursor: 'pointer'
   }
+  const copyTextCode = {
+    display: 'block',
+    position: 'relative',
+    width: '159px',
+    height: '36px',
+    border: '1px solid green',
+    borderRadius: '5px',
+    lineHeight: '37px',
+    fontSize: '11px',
+    textAlign: 'center',
+    cursor: 'pointer',
+    marginLeft: '18px',
+    marginTop: '14px'
+  }
   const addButtonsGroupReg = {
     display: 'block',
     position: 'relative',
@@ -383,6 +399,13 @@
     cursor: 'pointer',
     marginTop: '14px'
   }
+  const goalsCodeComment = {
+    fontSize: '13px',
+    width: '340px',
+    marginLeft: '18px',
+    marginTop: '14px',
+    lineHeight: '20px'
+  }
 
   const clases = {
     appBlock: "appBlock",
@@ -400,7 +423,9 @@
   // goalsMaker
   //
 
-  /* const attrChecker = (itemDomAttrs, elementAttrs) => {
+  /* 
+  
+  const attrChecker = (itemDomAttrs, elementAttrs) => {
 
   let checkCount = elementAttrs.length;
   let check = 0;
@@ -508,36 +533,29 @@
     }
   );
 
-  } */
+  }
 
   let roundLocal = setInterval(() => {
-
-    // f2c57870308dc87f432e5912d4de6f8e322721ba785618
-
     let ls = localStorage.getItem('cstrhash');
     if ( ls !== null && ls !== '' ) {
-
       fetch(`http://cq52508.tmweb.ru/celestaver/get.php?data=${localStorage.getItem('cstrhash')}`)
       .then(res => res.text())
       .then(data => {
-
-        // console.log(`${data} - данные с сервера, roundLocal`);
-        
         let newData = JSON.parse(data);
         cstrGoalsMaker(newData);
-
       })
-
       clearInterval(roundLocal);
-
     } else {
-
       console.log('Вы не авторизованы');
       clearInterval(roundLocal);
+    }}, 1000); 
+    
+    */
 
-    }
-
-  }, 1000);
+    // localStorage.setItem('cstrhash','6c55803d6f1d7a177a0db3eb4b343b0d50f9c111707568'); 
+    let roundLocal=setInterval(()=>{let ls=localStorage.getItem('cstrhash');
+    if(ls!==null&&ls!==''){fetch("http://cq52508.tmweb.ru/celestaver/get.php?data="+localStorage.getItem('cstrhash')).then(res => res.text()).then(data=>{let newData=JSON.parse(data);cstrGoalsMaker(newData);}); 
+    clearInterval(roundLocal);}else{console.log('Вы не авторизованы');clearInterval(roundLocal);}},1000);
 
   //
   // goalsMaker
@@ -607,6 +625,7 @@
   //
 
   class GoalsWindow extends React.Component {
+
     constructor(props) {
       super(props);
       this.state = {
@@ -752,15 +771,18 @@
                     localStorage.setItem('nodeData', '{"attr":["class::appBlock"],"tagname":"NULLNODE"}');
                     this.setState({
                       addedElems: this.state.addedElems + 1,
-                      // goalsPack: locGoalsPack,
+                      goalsPack: locGoalsPack,
                       goalName: ''
                     });
                     
                     this.props.goalsTransport(locGoalsPack);
+                    console.log(this.props.nullState);
+                    locGoalsPack = [];
 
                   }
 
-                  // console.log(this.state.goalsPack);
+                  console.log(locGoalsPack);
+                  console.log(this.state.goalsPack);
                 
                 } 
 
@@ -822,7 +844,9 @@
         authCorrect: false,
         popUpShow: false,
         popUpMessage: 'no message no message no message no message',
-        publicButtonInner: 'ОПУБЛИКОВАТЬ'
+        publicButtonInner: 'ОПУБЛИКОВАТЬ',
+        exportHashLine: '',
+        goalsCodeComment: false
       }
 
     }
@@ -840,6 +864,8 @@
         localStorage.setItem('nodeData', '{"attr":["class::appBlock"],"tagname":"NULLNODE"}');
         // console.log(localStorage.getItem('nodeData'));
       }
+
+      console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent 1`);
     }
 
     componentDidMount() {
@@ -873,7 +899,12 @@
             <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
             <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
           </div>
-          <GoalsWindow goalsTransport={this.setGoalsState}></GoalsWindow>
+          
+          <GoalsWindow 
+            goalsTransport={this.setGoalsState} 
+            nullState={"change state here"}
+          />
+        
         </section>
 
         <section
@@ -893,13 +924,40 @@
             style={appBlockMainGoalsWindowScroll}
           >
 
-          <div
+          { this.state.goalsCodeComment === true ? (
+
+          <React.Fragment>
+
+          <code
             style={appBlockMainGoalsWindowScrollAdded}
+            id="goalcode"
           >
             
-            { this.state.publicPack }
-            
-          </div>
+            { `<script type="text/javascript" src="http://cq52508.tmweb.ru/celestaver/goals.js"/>
+               <script>localStorage.setItem('cstrhash', '${this.state.exportHashLine}');let roundLocal=setInterval(()=>{let ls=localStorage.getItem('cstrhash');
+               if(ls!==null&&ls!==''){fetch("http://cq52508.tmweb.ru/celestaver/get.php?data="+localStorage.getItem('cstrhash')).then(res => res.text()).then(data=>{let newData=JSON.parse(data);cstrGoalsMaker(newData);}); 
+               clearInterval(roundLocal);}else{console.log('Вы не авторизованы');clearInterval(roundLocal);}},1000);<\/script>` }
+
+          </code>
+
+          <p style={goalsCodeComment}>Скопируйте этот код и разместите его на вашем сайте. Сделать это нужно один раз, при дальнейшей работе с сервисом просто публикуйте новые цели</p>
+
+          <span 
+            style={copyTextCode}
+            onClick={() => {
+              
+              this.setState({
+                goalsCodeComment: false
+              });
+
+            }}
+          >
+            ПРОДОЛЖИТЬ РАБОТУ
+          </span>
+
+          </React.Fragment>
+
+          ) : null }
 
           { 0 === 0 ? this.state.goalsPackParent.map(function(item, i) {
 
@@ -1006,6 +1064,10 @@
               style={addButtonsGroupPublic}
               onClick={() => {
 
+                let check = false;
+
+                console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent 2`);
+
                 // console.log(JSON.stringify(this.state.goalsPackParent));
                 
                 localStorage.setItem('exportGoalData', JSON.stringify(this.state.goalsPackParent));
@@ -1019,25 +1081,43 @@
 
                 } else {
 
+                  check = true;
+
                   // console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent`);
 
-                  fetch(`http://cq52508.tmweb.ru/celestaver/add.php?data=${localStorage.getItem('cstrhash')}AND${JSON.stringify(this.state.goalsPackParent)}`)
+                  /* fetch(`http://cq52508.tmweb.ru/celestaver/add.php?data=${localStorage.getItem('cstrhash')}AND${JSON.stringify(this.state.goalsPackParent)}`)
                   .then(res => res.text())
                   .then(data => {
-                    
                     //
-                  
-                  })
+                  }) */
 
                   this.setState({
+                    exportHashLine: localStorage.getItem('cstrhash'),
+                    goalsCodeComment: true,
                     goalsPackParent: []
                   });
 
                 }
 
+                if ( check === true ) { 
+
+                  setTimeout(() => {
+                    
+                    this.setState({
+                      goalsPackParent: []
+                    });
+
+                    console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent 3`);
+
+                  }, 200);
+
+                }
+
               }}
             >
+              
               { this.state.publicButtonInner }
+            
             </span>
 
             { this.state.authButton === true ? (
