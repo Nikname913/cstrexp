@@ -18,6 +18,12 @@
   // служебные объекты
   // -----
 
+  let logo = "img/logo.png";
+  let bgc = "#D1C4E9";
+  let targetBgc = "#E0E0E0";
+  let targetBgcAddBtn = "#9575CD";
+  // #9E9E9E
+
   const appBlock = {
     boxSizing: "border-box",
     display: "block",
@@ -26,7 +32,7 @@
     height: "100%",
     top: "0",
     left: "0",
-    backgroundColor: "#C7C7C7",
+    backgroundColor: bgc,
     boxShadow: "0px 0px 5px grey",
     overflow: 'hidden',
     borderRadius: '0px'
@@ -40,7 +46,7 @@
     top: "0",
     left: "0",
     marginLeft: '420px',
-    backgroundColor: "#C7C7C7",
+    backgroundColor: bgc,
     boxShadow: "0px 0px 5px grey",
     overflow: 'hidden',
     borderRadius: '0px'
@@ -54,7 +60,7 @@
     top: "0",
     left: "0",
     marginLeft: '840px',
-    backgroundColor: "#C7C7C7",
+    backgroundColor: bgc,
     boxShadow: "0px 0px 5px grey",
     overflow: 'hidden',
     borderRadius: '0px'
@@ -66,7 +72,7 @@
     height: 'auto',
     minHeight: '100px',
     borderRadius: '10px',
-    border: '1px dashed grey',
+    border: '1px solid white',
     marginTop: '100px',
     marginLeft: '38px',
     boxSizing: 'border-box',
@@ -95,6 +101,33 @@
     borderBottom: "2px solid white",
     lineHeight: "60px",
     paddingLeft: "14px"
+  }
+  const appBlockTopMenuSpec = {
+    boxSizing: "border-box",
+    display: "block",
+    position: "absolute",
+    width: "100%",
+    height: "60px",
+    top: "0",
+    left: "0",
+    borderBottom: "2px solid white",
+    lineHeight: "60px",
+    paddingLeft: "58px"
+  }
+  const appBlockTopMenuLogo = {
+    display: "block",
+    position: "absolute",
+    width: "38px",
+    height: "38px",
+    borderRadius: "50%",
+    top: "50%",
+    marginTop: "-19px",
+    left: "0",
+    marginLeft: "10px",
+    backgroundImage: "url(" + logo + ")",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepaet: "no-repeat"
   }
   const appBlockTargetTopMenu = {
     boxSizing: "border-box",
@@ -234,15 +267,13 @@
     height: 'auto',
     margin: '0 auto',
     minHeight: '40px',
-    borderTop: '2px solid red',
-    borderBottom: '2px solid red',
     paddingLeft: '14px',
     paddingRight: '16px',
     paddingTop: '6px',
     paddingBottom: '5px',
     boxSizing: 'border-box',
     lineHeight: '20px',
-    backgroundColor: 'rgb(199, 199, 199)'
+    backgroundColor: targetBgc
   }
   const targetElems = {
     display: 'block',
@@ -251,8 +282,8 @@
     height: 'auto',
     margin: '0 auto',
     minHeight: '40px',
-    borderTop: '2px solid red',
-    borderBottom: '2px solid red',
+    borderTop: '2px solid white',
+    borderBottom: '2px solid white',
     paddingLeft: '14px',
     paddingRight: '16px',
     paddingTop: '6px',
@@ -260,6 +291,21 @@
     boxSizing: 'border-box',
     lineHeight: '20px',
     marginTop: '20px',
+  }
+  const targetElemCounterInput = {
+    display: 'block',
+    position: 'relative',
+    width: '100%',
+    height: '40px',
+    fontSize: '13px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    outline: 'none',
+    borderTop: '2px solid white',
+    textAlign: 'center',
+    padding: '0',
+    paddingTop: '2px',
+    marginTop: '20px'
   }
   const targetElemGoalInput = {
     display: 'block',
@@ -276,13 +322,12 @@
     paddingTop: '2px',
     marginLeft: '10%'
   }
-  const targetElemGoalAdd = {
+  const targetElemGoalAddUnvalid = {
     display: 'block',
     position: 'relative',
     width: '220px',
     height: '40px',
     borderRadius: '5px',
-    border: '1px solid red',
     marginTop: '5px',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -290,7 +335,28 @@
     textAlign: 'center',
     lineHeight: '40px',
     cursor: 'pointer',
-    fontSize: '11px'
+    fontSize: '11px',
+    color: 'white',
+    backgroundColor: '#9E9E9E',
+    boxShadow: '0px 0px 6px 1px grey'
+  }
+  const targetElemGoalAddValid = {
+    display: 'block',
+    position: 'relative',
+    width: '220px',
+    height: '40px',
+    borderRadius: '5px',
+    marginTop: '5px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: '14px',
+    textAlign: 'center',
+    lineHeight: '40px',
+    cursor: 'pointer',
+    fontSize: '11px',
+    color: 'white',
+    backgroundColor: targetBgcAddBtn,
+    boxShadow: '0px 0px 6px 1px grey'
   }
   const goalsCounter = {
     display: 'block',
@@ -338,7 +404,7 @@
     alignItems: 'center',
     height: '60px',
     width: '300px',
-    border: '1px dashed grey',
+    border: '1px solid white',
     borderRadius: '10px',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -352,33 +418,53 @@
     position: 'relative',
     width: '129px',
     height: '36px',
-    border: '1px solid green',
+    backgroundColor: '#4CAF50',
     borderRadius: '5px',
     lineHeight: '37px',
     fontSize: '11px',
     textAlign: 'center',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    color: 'white',
+    boxShadow: '0px 0px 6px 1px grey'
+  }
+  const addButtonsGroupPublicError = {
+    display: 'block',
+    position: 'relative',
+    width: '129px',
+    height: '36px',
+    backgroundColor: '#9E9E9E',
+    borderRadius: '5px',
+    lineHeight: '37px',
+    fontSize: '11px',
+    textAlign: 'center',
+    cursor: 'pointer',
+    color: 'white',
+    boxShadow: '0px 0px 6px 1px grey'
   }
   const copyTextCode = {
     display: 'block',
     position: 'relative',
     width: '159px',
     height: '36px',
-    border: '1px solid green',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    boxShadow: '0px 0px 6px 1px grey',
     borderRadius: '5px',
     lineHeight: '37px',
     fontSize: '11px',
     textAlign: 'center',
     cursor: 'pointer',
     marginLeft: '18px',
-    marginTop: '14px'
+    marginTop: '15px'
   }
   const addButtonsGroupReg = {
     display: 'block',
     position: 'relative',
     width: '169px',
     height: '36px',
-    border: '1px solid green',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    boxShadow: '0px 0px 6px 1px grey',
     borderRadius: '5px',
     lineHeight: '37px',
     fontSize: '11px',
@@ -391,7 +477,9 @@
     position: 'relative',
     width: '169px',
     height: '36px',
-    border: '1px solid green',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    boxShadow: '0px 0px 6px 1px grey',
     borderRadius: '5px',
     lineHeight: '37px',
     fontSize: '11px',
@@ -404,7 +492,8 @@
     width: '340px',
     marginLeft: '18px',
     marginTop: '14px',
-    lineHeight: '20px'
+    lineHeight: '20px',
+    color: 'grey'
   }
 
   const clases = {
@@ -633,9 +722,11 @@
         addedElems: 0,
         goalsPack: [],
         goalName: '',
+        counterName: '',
         startMessage: 'выберите элемент, на который хотите поставить цель, нажав на него правой кнопкой мыши',
         popUpMessage: 'no message no message no message no message',
-        popUpShow: false
+        popUpShow: false,
+        addValidate: false
       }
     }
 
@@ -645,6 +736,21 @@
           targetElem: JSON.parse(localStorage.getItem('nodeData'))
         });
       }, 100);
+
+      let clearState = setInterval(() => {
+        
+        if ( localStorage.getItem('clearState') === 'true' ) {
+
+          this.setState({
+            goalsPack: [],
+            addedElems: 0
+          });
+
+          localStorage.setItem('clearState', 'false');
+
+        } 
+
+      }, 1000);
     }
 
     render = () => {
@@ -731,20 +837,34 @@
             <input 
               style={targetElemGoalInput}
               type="text"
-              placeholder="Идентификатор цели"
+              placeholder="Идентификатор цели*"
               maxlength="13"
               onKeyUp={(e) => {
                 let tval = e.target.value;
                 this.setState({
                   goalName: tval
                 });
+
+                if ( tval.length > 4 && this.state.counterName.length >=6 ) {
+                  this.setState({
+                    addValidate: true
+                  });
+                } else {
+                  this.setState({
+                    addValidate: false
+                  });
+                }
               }}
             /> 
             <span
-              style={targetElemGoalAdd}
+              style={ 
+                this.state.addValidate === false
+                ? targetElemGoalAddUnvalid
+                : targetElemGoalAddValid  
+              }
               onClick={() => {
 
-                if ( this.state.goalName.length > 4 ) {
+                if ( this.state.goalName.length > 4 && this.state.counterName.length >= 6 ) {
 
                 let goalData = JSON.parse(localStorage.getItem('nodeData'));
                 if ( goalData.tagname != 'NULLNODE' ) {
@@ -753,7 +873,10 @@
                   let addCorrect = true;
 
                   locGoalsPack.forEach(item => {
-                    if ( item == this.state.goalName ) {
+
+                    if ( typeof(item) == 'string' ) {
+
+                    if ( item.split('**')[0] == this.state.goalName ) {
 
                       addCorrect = false;
                       this.setState({
@@ -761,28 +884,27 @@
                         popUpMessage: 'Цель с таким ID уже создана, введите другой ID. Идентификатор должен быть уникальным для корректного сбора статистики'
                       });
 
-                    } 
+                    }}
+
                   });
 
                   if ( addCorrect == true ) {
 
                     locGoalsPack.push(goalData);
-                    locGoalsPack.push(this.state.goalName);
+                    locGoalsPack.push(`${this.state.goalName}**${this.state.counterName}`);
                     localStorage.setItem('nodeData', '{"attr":["class::appBlock"],"tagname":"NULLNODE"}');
                     this.setState({
                       addedElems: this.state.addedElems + 1,
                       goalsPack: locGoalsPack,
-                      goalName: ''
+                      goalName: '',
+                      counterName: '',
+                      addValidate: false
                     });
                     
                     this.props.goalsTransport(locGoalsPack);
-                    console.log(this.props.nullState);
                     locGoalsPack = [];
 
                   }
-
-                  console.log(locGoalsPack);
-                  console.log(this.state.goalsPack);
                 
                 } 
 
@@ -806,7 +928,32 @@
               ДОБАВИТЬ
             </span>
           </div>
-          <div style={targetElems}></div>
+          <div>
+          
+            <input 
+              style={targetElemCounterInput}
+              type="text"
+              placeholder="Номер счетчика*"
+              maxlength="10"
+              onKeyUp={(e) => {
+                let tval = e.target.value;
+                this.setState({
+                  counterName: tval
+                });
+
+                if ( tval.length >= 6 && this.state.goalName.length > 4 ) {
+                  this.setState({
+                    addValidate: true
+                  });
+                } else {
+                  this.setState({
+                    addValidate: false
+                  });
+                }
+              }}
+            />
+            
+          </div>
           </React.Fragment>
 
         ) : null }
@@ -846,7 +993,8 @@
         popUpMessage: 'no message no message no message no message',
         publicButtonInner: 'ОПУБЛИКОВАТЬ',
         exportHashLine: '',
-        goalsCodeComment: false
+        goalsCodeComment: false,
+        authColor: true
       }
 
     }
@@ -865,11 +1013,11 @@
         // console.log(localStorage.getItem('nodeData'));
       }
 
-      console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent 1`);
     }
 
     componentDidMount() {
       localStorage.setItem('exportGoalData', '');
+      localStorage.setItem('clearState', 'false');
     }
 
     setGoalsState = (value) => {
@@ -893,17 +1041,15 @@
         >
           <div
             className={clases.appBlockTopMenu}
-            style={appBlockTopMenu}
+            style={appBlockTopMenuSpec}
           >
-          celestaver
+            <span style={appBlockTopMenuLogo}></span>
+            celestaver
             <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
             <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
           </div>
           
-          <GoalsWindow 
-            goalsTransport={this.setGoalsState} 
-            nullState={"change state here"}
-          />
+          <GoalsWindow goalsTransport={this.setGoalsState}></GoalsWindow>
         
         </section>
 
@@ -915,7 +1061,17 @@
             className={clases.appBlockTopMenu}
             style={appBlockTargetTopMenu}
           >
-          список созданных целей
+            созданные цели 
+            <i
+              style={{
+                marginLeft: '16px',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }}
+              onClick={this.testFunc}
+            >
+              подробно
+            </i>
             <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
             <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
           </div>
@@ -972,20 +1128,18 @@
                   <p 
                     style={{ 
                       marginBottom: '0px', 
-                      marginTop: '0px',
-                      height: '38px',
-                      lineHeight: '37px',
+                      marginTop: '-2px',
+                      height: '36px',
+                      lineHeight: '34px', 
                       width: '160px',
-                      border: '1px dashed grey',
-                      borderTop: 'none',
-                      'border-bottom-right-radius': '30px',
-                      'border-bottom-left-radius': '30px',
+                      backgroundColor: 'rgb(76, 175, 80, 0.3)',
+                      borderRadius: '20px',
                       textAlign: 'center',
                       marginLeft: '14px',
                       marginBottom: '12px'
                     }}
                   >
-                    {item}
+                    {item.split('**')[0]}
                   </p>
               
                 ) : (
@@ -997,20 +1151,11 @@
                       height: 'auto',
                       lineHeight: '38px',
                       paddingLeft: '12px',
-                      borderTop: '1px dashed grey',
-                      borderBottom: '1px dashed grey'
+                      marginBottom: '14px',
+                      borderTop: '1px solid rgb(224, 224, 224)'
                     }}
                   >
-                    <span
-                      style={{
-                        cursor: 'pointer'
-                      }}
-                      onClick={this.testFunc}
-                    >
-                      
-                      { this.state.showGoal1 === false ? ('Подробный вид') : ('Общий вид') }
-
-                    </span>
+                    <span style={{ height: '0px' }}></span>
                     
                     { this.state.showGoal1 === true ? (
 
@@ -1021,24 +1166,71 @@
                           width: '100%',
                           height: 'auto',
                           minHeight: '30px',
-                          borderTop: '1px dashed grey',
+                          fontStyle: 'italic',
                           marginLeft: '-12px',
                           marginTop: '0.5px'
                         }}  
                       >
-                        <p style={{ lineHeight: '18px', border: '1px dashed grey' }}>{item.tagname}</p>
+                        <p 
+                          style={{ 
+                            width: '80%',
+                            height: '36px',
+                            lineHeight: '36px', 
+                            backgroundColor: 'rgb(76, 175, 80, 0.3)',
+                            paddingLeft: '12px',
+                            'border-top-right-radius': '15px',
+                            'border-bottom-right-radius': '15px',
+                          }}
+                        >
+                          
+                          {item.tagname}
+                        
+                        </p>
                         
                         { item.attr.map(attrs => {
+                          
                           return(
 
-                            <p style={{ lineHeight: '18px', border: '1px dashed grey' }}>{`${attrs.split("::")[0]} - ${attrs.split("::")[1]}`}</p>
+                            <p 
+                              style={{ 
+                                height: '32px',
+                                lineHeight: '30px', 
+                                backgroundColor: 'rgb(224, 224, 224)',
+                                margin: '0',
+                                paddingLeft: '14px',
+                                'border-top-left-radius': '15px',
+                                'border-bottom-left-radius': '15px',
+                                marginLeft: '14px',
+                                marginBottom: '12px' 
+                              }}
+                            >
+                              
+                              {`${attrs.split("::")[0]} - ${attrs.split("::")[1]}`}
+                            
+                            </p>
                           
                           );
+
                         }) }
                         
                         { item.inner !== undefined ? (
                           
-                          <p style={{ lineHeight: '18px', border: '1px dashed grey' }}>{`Иннер - ${item.inner}`}</p>
+                          <p 
+                            style={{ 
+                              height: '32px',
+                              lineHeight: '30px', 
+                              backgroundColor: 'rgb(224, 224, 224)',
+                              margin: '0',
+                              paddingLeft: '14px',
+                              'border-top-left-radius': '15px',
+                              'border-bottom-left-radius': '15px',
+                              marginLeft: '14px'
+                            }}
+                          >
+
+                            {`Иннер - ${item.inner}`}
+                          
+                          </p>
 
                         ) : null }
 
@@ -1046,13 +1238,10 @@
 
                     ) : null }
                     
-                    <span 
-                      style={appBlockMainGoalsWindowLineDeleteGoal}
-                      onClick={() => {}}
-                    ></span>
                   </p>
 
                 ) }
+                
               </article>
             );
 
@@ -1061,12 +1250,14 @@
 
           <div style={addButtonsGroup}>
             <span 
-              style={addButtonsGroupPublic}
+              style={
+                this.state.authColor === true 
+                ? addButtonsGroupPublic 
+                : addButtonsGroupPublicError 
+              }
               onClick={() => {
 
                 let check = false;
-
-                console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent 2`);
 
                 // console.log(JSON.stringify(this.state.goalsPackParent));
                 
@@ -1076,7 +1267,8 @@
 
                   this.setState({
                     authButton: true,
-                    publicButtonInner: 'AUTH ERROR'
+                    publicButtonInner: 'AUTH ERROR',
+                    authColor: false
                   });
 
                 } else {
@@ -1097,6 +1289,8 @@
                     goalsPackParent: []
                   });
 
+                  localStorage.setItem('clearState', 'true');
+
                 }
 
                 if ( check === true ) { 
@@ -1106,8 +1300,6 @@
                     this.setState({
                       goalsPackParent: []
                     });
-
-                    console.log(`${JSON.stringify(this.state.goalsPackParent)} - goalsPackParent 3`);
 
                   }, 200);
 
@@ -1132,7 +1324,7 @@
 
               }}
             >
-              РЕГИСТРАЦИЯ
+              МОЙ ЛОГИН
             </span>  
 
             ) : null }
@@ -1172,9 +1364,7 @@
             className={clases.appBlockTopMenu}
             style={appBlockTargetTopMenu}
           >
-          создание учетной записи
-            <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
-            <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
+            работа с учетной записью
           </div>
 
           { this.state.authCorrect === false ? (
@@ -1186,7 +1376,7 @@
             <input 
               style={appBlockAuthFormTextInput}
               type="text"
-              placeholder="create login*"
+              placeholder="create or write login*"
               onKeyUp={(e) => {
                 this.setState({
                   login: e.target.value
@@ -1196,7 +1386,7 @@
             <input 
               style={appBlockAuthFormTextInput}
               type="text"
-              placeholder="create password*"
+              placeholder="create or write password*"
               onKeyUp={(e) => {
                 this.setState({
                   password: e.target.value
@@ -1258,7 +1448,8 @@
                       // authCorrect: true
                       authShow: false,
                       authButton: false,
-                      publicButtonInner: 'ОПУБЛИКОВАТЬ'
+                      publicButtonInner: 'ОПУБЛИКОВАТЬ',
+                      authColor: true
                     });
 
                     const hashline = data.split('.')[1];
@@ -1305,7 +1496,8 @@
                         // authCorrect: true
                         authShow: false,
                         authButton: false,
-                        publicButtonInner: 'ОПУБЛИКОВАТЬ'
+                        publicButtonInner: 'ОПУБЛИКОВАТЬ',
+                        authColor: true
                       });
 
                     }
