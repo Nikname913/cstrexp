@@ -483,7 +483,7 @@
     appBlockMainGoalsWindow: "appBlockMainGoalsWindow"
   }
 
-class GoalsWindow extends React.Component {
+  class GoalsWindow extends React.Component {
 
     constructor(props) {
       super(props);
