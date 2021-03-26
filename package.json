@@ -1,0 +1,24 @@
+{
+  "name": "celestaver",
+  "description": "",
+  "version": "1.0.0",
+  "author": "nik.shipov@gmail.com",
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.0.0",
+    "webpack": "^5.11.0",
+    "webpack-cli": "^4.3.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
