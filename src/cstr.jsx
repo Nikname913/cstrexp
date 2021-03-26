@@ -1,4 +1,5 @@
-
+  import React from 'react';
+  
   let logo = "img/logo.png";
   let bgc = "#D1C4E9";
   let targetBgc = "#E0E0E0";
@@ -848,8 +849,16 @@
             >
               подробно
             </i>
-            <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
-            <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
+            <i
+              style={{
+                marginLeft: '16px',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }}
+              onClick={() => {}}
+            >
+              цели на сайте
+            </i>
           </div>
           
           <div
