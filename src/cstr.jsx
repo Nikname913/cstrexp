@@ -1,5 +1,3 @@
-  import React from 'react';
-  
   let logo = "img/logo.png";
   let bgc = "#D1C4E9";
   let targetBgc = "#E0E0E0";
@@ -172,6 +170,22 @@
     paddingBottom: '20px',
     overflowY: 'scroll',
     overflowX: 'hidden'
+  }
+  const appBlockMainGoalsWindowAdded = {
+    display: 'block',
+    position: 'absolute',
+    width: '160px',
+    height: 'auto',
+    minHeight: '40px',
+    backgroundColor: 'white',
+    left: '100%',
+    marginLeft: '-180px',
+    marginTop: '0px',
+    'border-bottom-right-radius': '10px',
+    'border-bottom-left-radius': '10px',
+    paddingTop: '6px',
+    paddingBottom: '9px',
+    'z-index': '5'
   }
   const appBlockMainGoalsWindowScrollAdded = {
     display: 'block',
@@ -476,6 +490,24 @@
     lineHeight: '20px',
     color: 'grey'
   }
+  const cpcSystemType = {
+    display: 'block',
+    position: 'absolute',
+    width: '180px',
+    marginLeft: '-200px',
+    height: '40px',
+    border: '1px dashed grey',
+    borderRadius: '5px',
+    top: '0'
+  }
+  const cpcSystemTypeButton = {
+    display: 'block',
+    position: 'relative',
+    width: '80px',
+    height: '40px',
+    borderRadius: '20px',
+    border: '1px solid grey'
+  }
 
   const clases = {
     appBlock: "appBlock",
@@ -581,6 +613,12 @@
 
           }}
         >
+
+          <div style={cpcSystemType}> 
+            
+            <span stykle={cpcSystemTypeButton}></span>
+          
+          </div>
           
           { this.state.addedElems }
 
@@ -748,15 +786,6 @@
         goalsPackParent: [],
         publicPack: '',
         showGoal1: false,
-        showGoal2: false,
-        showGoal3: false,
-        showGoal4: false,
-        showGoal5: false,
-        showGoal6: false,
-        showGoal7: false,
-        showGoal8: false,
-        showGoal9: false,
-        showGoal10: false,
         login: '',
         password: '',
         authButton: false,
@@ -767,7 +796,10 @@
         publicButtonInner: 'ОПУБЛИКОВАТЬ',
         exportHashLine: '',
         goalsCodeComment: false,
-        authColor: true
+        authColor: true,
+        aboutGoals: 'подробно',
+        addedGoals: null,
+        showAddedGoals: false
       }
 
       this.setGoalsState = this.setGoalsState.bind(this);
@@ -792,8 +824,25 @@
     }
 
     componentDidMount() {
+
       localStorage.setItem('exportGoalData', '');
       localStorage.setItem('clearState', 'false');
+      
+      let token = localStorage.getItem('cstrhash');
+
+      fetch(`http://cq52508.tmweb.ru/celestaver/get.php?data=${token}`)
+      .then(res => res.text())
+      .then(data => {
+        if ( data !== '' ) {
+
+          let jsonData = JSON.parse(data);
+          this.setState({
+            addedGoals: jsonData
+          });
+
+        }
+      })
+    
     }
 
     setGoalsState(value) {
@@ -846,8 +895,13 @@
                 cursor: 'pointer'
               }}
               onClick={this.testFunc}
+              onMouseDown={() => {
+                this.state.aboutGoals === 'подробно' 
+                ? this.setState({ aboutGoals: 'кратко' })
+                : this.setState({ aboutGoals: 'подробно' })
+              }}
             >
-              подробно
+              {this.state.aboutGoals}
             </i>
             <i
               style={{
@@ -855,15 +909,51 @@
                 fontWeight: 'bold',
                 cursor: 'pointer'
               }}
-              onClick={() => {}}
+              onClick={() => {
+                this.setState({
+                  showAddedGoals: !this.state.showAddedGoals
+                });
+              }}
             >
               цели на сайте
             </i>
+
+            { this.state.showAddedGoals === true ? (
+
+              <article style={appBlockMainGoalsWindowAdded}>
+
+              { this.state.addedGoals !== null ? this.state.addedGoals.map(item => {
+
+                if ( typeof(item) === 'string' ) { return(
+
+                  <p
+                    style={{
+                      fontSize: '13px',
+                      height: '22px',
+                      lineHeight: '21px',
+                      paddingLeft: '13px',
+                      fontStyle: 'italic',
+                      margin: '0'
+                    }}
+                  >
+      
+                    { item.split('**')[0] }
+    
+                  </p>
+
+                ); }
+
+              }) : null }
+
+              </article>
+
+            ) : null }  
+
           </div>
           
           <div
             style={appBlockMainGoalsWindowScroll}
-          >
+          >  
 
           { this.state.goalsCodeComment === true ? (
 
@@ -931,7 +1021,7 @@
 
                   <p 
                     style={{ 
-                      marginBottom: '0px', 
+                      marginBottom: '0px',
                       marginTop: '0px',
                       height: 'auto',
                       lineHeight: '38px',
@@ -1031,6 +1121,7 @@
             );
 
           }, this) : null }
+
           </div>
 
           <div style={addButtonsGroup}>
