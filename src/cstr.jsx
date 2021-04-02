@@ -67,7 +67,8 @@
     borderRadius: '5px',
     marginBottom: '10px',
     fontSize: '13px',
-    paddingLeft: '12px'
+    paddingLeft: '12px',
+    boxSizing: 'border-box'
   }
   const appBlockTopMenu = {
     boxSizing: "border-box",
@@ -491,22 +492,40 @@
     color: 'grey'
   }
   const cpcSystemType = {
-    display: 'block',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     position: 'absolute',
     width: '180px',
-    marginLeft: '-200px',
-    height: '40px',
-    border: '1px dashed grey',
+    marginLeft: '-180px',
+    marginTop: '0px',
+    height: '42px',
     borderRadius: '5px',
     top: '0'
   }
   const cpcSystemTypeButton = {
     display: 'block',
     position: 'relative',
-    width: '80px',
-    height: '40px',
+    width: '66px',
+    height: '30px',
     borderRadius: '20px',
     border: '1px solid grey'
+  }
+  const cpcSystemTypeGreenButton = {
+    display: 'block',
+    position: 'absolute',
+    width: '14px',
+    height: '14px',
+    backgroundColor: '#9575CD',
+    borderRadius: '50%',
+    top: '50%',
+    marginTop: '-7px',
+    marginLeft: '8px'
+  }
+  const cpcSystemTypeButtonTitle = {
+    fontSize: '14px',
+    marginLeft: '10px'
   }
 
   const clases = {
@@ -616,7 +635,10 @@
 
           <div style={cpcSystemType}> 
             
-            <span stykle={cpcSystemTypeButton}></span>
+            <span style={cpcSystemTypeButton}>
+              <span style={cpcSystemTypeGreenButton}></span>
+            </span>
+            <p style={cpcSystemTypeButtonTitle}>Метрика</p>
           
           </div>
           
