@@ -134,7 +134,13 @@
     top: "50%",
     marginTop: "-16px",
     left: "100%",
-    marginLeft: "-58px"
+    marginLeft: "-45px",
+    cursor: "pointer",
+    fontSize: '13px',
+    textAlign: 'center',
+    lineHeight: '30px',
+    fontStyle: 'normal',
+    fontWeight: 'normal'
   }
   const appBlockTopMenuSpanTwo = {
     boxSizing: "border-box",
@@ -147,7 +153,11 @@
     top: "50%",
     marginTop: "-16px",
     left: "100%",
-    marginLeft: "-102px"
+    marginLeft: "-88px",
+    cursor: "pointer",
+    fontSize: '13px',
+    textAlign: 'center',
+    lineHeight: '30px'
   }
   const appBlockMainGoalsWindow = {
     boxSizing: "border-box",
@@ -291,32 +301,32 @@
   const targetElemCounterInput = {
     display: 'block',
     position: 'relative',
-    width: '100%',
+    width: '70%',
     height: '40px',
     fontSize: '13px',
     backgroundColor: 'transparent',
     border: 'none',
     outline: 'none',
-    borderTop: '2px solid white',
+    borderTop: '1px dashed white',
     textAlign: 'center',
     padding: '0',
     paddingTop: '2px',
-    marginTop: '20px'
+    marginLeft: '15%'
   }
   const targetElemGoalInput = {
     display: 'block',
     position: 'relative',
-    width: '80%',
+    width: '70%',
     height: '40px',
     fontSize: '13px',
     backgroundColor: 'transparent',
     border: 'none',
     outline: 'none',
-    borderTop: '2px solid white',
     textAlign: 'center',
     padding: '0',
     paddingTop: '2px',
-    marginLeft: '10%'
+    paddingBottom: '3px',
+    marginLeft: '15%'
   }
   const targetElemGoalAddUnvalid = {
     display: 'block',
@@ -327,7 +337,7 @@
     marginTop: '5px',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginBottom: '14px',
+    marginBottom: '18px',
     textAlign: 'center',
     lineHeight: '40px',
     cursor: 'pointer',
@@ -345,7 +355,7 @@
     marginTop: '5px',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginBottom: '14px',
+    marginBottom: '18px',
     textAlign: 'center',
     lineHeight: '40px',
     cursor: 'pointer',
@@ -367,8 +377,7 @@
     marginTop: '20px',
     textAlign: 'center',
     fontSize: '16px',
-    lineHeight: '42px',
-    cursor: 'pointer'
+    lineHeight: '42px'
   }
   const goalsCounterMarker = {
     display: 'block',
@@ -510,7 +519,8 @@
     width: '66px',
     height: '30px',
     borderRadius: '20px',
-    border: '1px solid grey'
+    border: '1px solid grey',
+    cursor: 'pointer'
   }
   const cpcSystemTypeGreenButton = {
     display: 'block',
@@ -549,7 +559,10 @@
         startMessage: 'выберите элемент, на который хотите поставить цель, нажав на него правой кнопкой мыши',
         popUpMessage: 'no message no message no message no message',
         popUpShow: false,
-        addValidate: false
+        addValidate: false,
+        digitalSystemType: '8px',
+        digitalSystemColor: '#9575CD',
+        digitalSystemName: 'Метрика'
       }
     }
 
@@ -616,29 +629,43 @@
         <span 
           style={goalsCounter}
           onClick={() => {
-
-            if ( this.state.addedElems != 0 ) {
-
-              //
-
-            } else {
-              
-              this.setState({
-                popUpShow: true,
-                popUpMessage: 'Список триггеров пуст. Вы не создали ни одной цели. Выберите нужный элемент на сайте, заполните поле с ID цели и попробуйте снова'
-              });
-
-            }
-
+            //
           }}
         >
 
           <div style={cpcSystemType}> 
             
-            <span style={cpcSystemTypeButton}>
-              <span style={cpcSystemTypeGreenButton}></span>
+            <span 
+              style={cpcSystemTypeButton}
+              onClick={() => {
+
+                this.state.digitalSystemType === '8px' 
+                ? this.setState({ 
+                  digitalSystemType: '44px', 
+                  digitalSystemColor: 'rgb(76, 175, 80)',
+                  digitalSystemName: 'Analytics' })
+                : this.setState({ 
+                  digitalSystemType: '8px', 
+                  digitalSystemColor: '#9575CD',
+                  digitalSystemName: 'Метрика' })
+
+              }}
+            >
+              <span 
+                style={{
+                  display: 'block',
+                  position: 'absolute',
+                  width: '14px',
+                  height: '14px',
+                  backgroundColor: this.state.digitalSystemColor,
+                  borderRadius: '50%',
+                  top: '50%',
+                  marginTop: '-7px',
+                  marginLeft: this.state.digitalSystemType
+                }}
+              />
             </span>
-            <p style={cpcSystemTypeButtonTitle}>Метрика</p>
+            <p style={cpcSystemTypeButtonTitle}>{ this.state.digitalSystemName }</p>
           
           </div>
           
@@ -655,21 +682,52 @@
         { this.state.targetElem.tagname != 'NULLNODE' ? (
           
           <React.Fragment>
+
           <div style={targetElem}>
-            <p>{this.state.targetElem.tagname}</p>
-            <p>{this.state.targetElem.attr.map(
-              attribute => {
-                if ( attribute.split('::')[0] !== 'style' ) { 
-                  return(
-                    <p>{`${attribute.split('::')[0]}`} - <span>{`${attribute.split('::')[1]}`}</span></p>
-                  )
+
+            { 0 === 0 ? (
+
+            // вывод более подробных данных об элементе в интерфейс
+            // не ясна необходимость, тк такие данные доступны в списке целей
+            // на 03.04.21 блок скрыт
+
+            <React.Fragment>
+
+              <p
+                style={{
+                  fontSize: '14px'
+                }}
+              >
+                {`<${this.state.targetElem.tagname}>`}
+              </p>
+              <p
+                style={{
+                  fontSize: '14px',
+                  fontStyle: 'italic',
+                  paddingLeft: '12px'
+                }}
+              >
+
+              {this.state.targetElem.attr.map(
+                attribute => {
+                  if ( attribute.split('::')[0] !== 'style' ) { 
+                    return(
+                      <p>{`${attribute.split('::')[0]}`} - <span>{`${attribute.split('::')[1]}`}</span></p>
+                    )
+                  }
                 }
-              }
-            )}</p> 
+              )}
+
+              </p>
+
+            </React.Fragment>
+
+            ) : null }
+
             <input 
               style={targetElemGoalInput}
               type="text"
-              placeholder="Идентификатор цели*"
+              placeholder="Идентификатор цели"
               maxlength="13"
               onKeyUp={(e) => {
                 let tval = e.target.value;
@@ -688,6 +746,28 @@
                 }
               }}
             /> 
+            <input 
+              style={targetElemCounterInput}
+              type="text"
+              placeholder="Номер счетчика"
+              maxlength="10"
+              onKeyUp={(e) => {
+                let tval = e.target.value;
+                this.setState({
+                  counterName: tval
+                });
+
+                if ( tval.length >= 6 && this.state.goalName.length > 4 ) {
+                  this.setState({
+                    addValidate: true
+                  });
+                } else {
+                  this.setState({
+                    addValidate: false
+                  });
+                }
+              }}
+            />
             <span
               style={ 
                 this.state.addValidate === false
@@ -736,6 +816,12 @@
                     this.props.goalsTransport(locGoalsPack);
                     locGoalsPack = [];
 
+                    // fuck this code
+
+                    document.getElementById('target-border').style.display = 'none';
+
+                    // fuck this code
+
                   }
                 
                 } 
@@ -760,32 +846,7 @@
               ДОБАВИТЬ
             </span>
           </div>
-          <div>
-          
-            <input 
-              style={targetElemCounterInput}
-              type="text"
-              placeholder="Номер счетчика*"
-              maxlength="10"
-              onKeyUp={(e) => {
-                let tval = e.target.value;
-                this.setState({
-                  counterName: tval
-                });
 
-                if ( tval.length >= 6 && this.state.goalName.length > 4 ) {
-                  this.setState({
-                    addValidate: true
-                  });
-                } else {
-                  this.setState({
-                    addValidate: false
-                  });
-                }
-              }}
-            />
-            
-          </div>
           </React.Fragment>
 
         ) : null }
@@ -812,6 +873,7 @@
         password: '',
         authButton: false,
         authShow: false,
+        createdGoalsShow: true,
         authCorrect: false,
         popUpShow: false,
         popUpMessage: 'no message no message no message no message',
@@ -821,7 +883,8 @@
         authColor: true,
         aboutGoals: 'подробно',
         addedGoals: null,
-        showAddedGoals: false
+        showAddedGoals: false,
+        deleteGoalButtonColor: 'grey'
       }
 
       this.setGoalsState = this.setGoalsState.bind(this);
@@ -872,7 +935,7 @@
       console.log(value);
 
       this.setState({
-        goalsPackParent: value
+        goalsPackParent: value,
       });
 
     }
@@ -893,13 +956,15 @@
           >
             <span style={appBlockTopMenuLogo}></span>
             celestaver
-            <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}></span>
-            <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}></span>
+            <span className={clases.appBlockTopMenuSpan} style={appBlockTopMenuSpan}>C</span>
+            <span className={clases.appBlockTopMenuSpanTwo} style={appBlockTopMenuSpanTwo}>H</span>
           </div>
           
           <GoalsWindow goalsTransport={this.setGoalsState}></GoalsWindow>
         
         </section>
+
+        { this.state.createdGoalsShow === true ? (
 
         <section
           className={clases.appBlock}
@@ -938,6 +1003,19 @@
               }}
             >
               цели на сайте
+            <span 
+              className={clases.appBlockTopMenuSpan} 
+              style={appBlockTopMenuSpan}
+              onClick={() => {
+                
+                this.setState({
+                  createdGoalsShow: false
+                });
+
+              }}
+            >
+              H
+            </span>
             </i>
 
             { this.state.showAddedGoals === true ? (
@@ -966,6 +1044,90 @@
                 ); }
 
               }) : null }
+
+              { this.state.addedGoals !== null ? (
+
+              <p
+                style={{
+                  fontSize: '13px',
+                  height: '22px',
+                  lineHeight: '21px',
+                  paddingLeft: '13px',
+                  fontStyle: 'italic',
+                  margin: '0',
+                  color: this.state.deleteGoalButtonColor,
+                  cursor: 'pointer'
+                }}
+                onMouseOver={() => {
+
+                  this.setState({
+                    deleteGoalButtonColor: 'black'
+                  });
+
+                }}
+                onMouseOut={() => {
+
+                  this.setState({
+                    deleteGoalButtonColor: 'grey'
+                  });
+
+                }}
+                onClick={() => {
+
+                  fetch(`http://cq52508.tmweb.ru/celestaver/delete.php?data=${localStorage.getItem('cstrhash')}`)
+                  .then(res => res.text())
+                  .then(data => {
+                    //
+                  })
+                  
+                  let token = localStorage.getItem('cstrhash');
+
+                  fetch(`http://cq52508.tmweb.ru/celestaver/get.php?data=${token}`)
+                  .then(res => res.text())
+                  .then(data => {
+                    if ( data !== '' ) {
+
+                      let jsonData = JSON.parse(data);
+                      this.setState({
+                        addedGoals: jsonData
+                      });
+
+                    } else {
+
+                      this.setState({
+                        addedGoals: null
+                      });
+
+                    }
+                  })
+
+                }}
+              >
+
+                delete all goals
+
+              </p>
+
+              ) : (
+
+                <p
+                  style={{
+                    fontSize: '13px',
+                    height: '22px',
+                    lineHeight: '21px',
+                    paddingLeft: '13px',
+                    fontStyle: 'italic',
+                    margin: '0',
+                    color: this.state.deleteGoalButtonColor,
+                    cursor: 'pointer'
+                  }}
+                >
+
+                  Нет целей
+
+                </p>
+
+              ) }
 
               </article>
 
@@ -1036,7 +1198,27 @@
                       marginBottom: '12px'
                     }}
                   >
-                    {item.split('**')[0]}
+                    
+                    {`${item.split('**')[0]}`}
+
+                    <span
+                      style={{
+                        display: 'block',
+                        position: 'absolute',
+                        width: '18px',
+                        height: '18px',
+                        border: '1px solid white',
+                        borderRadius: '50%',
+                        top: '50%',
+                        marginTop: '-10px',
+                        left: '144px',
+                        lineHeight: '16px',
+                        textAlign: 'center',
+                        fontSize: '10px',
+                        cursor: 'pointer'
+                      }}
+                    />
+
                   </p>
               
                 ) : (
@@ -1231,6 +1413,8 @@
 
         </section>
 
+        ) : null }
+
         { this.state.authShow === true ? (
 
         <section
@@ -1263,6 +1447,17 @@
             style={appBlockTargetTopMenu}
           >
             работа с учетной записью
+            <span 
+              className={clases.appBlockTopMenuSpan} 
+              style={appBlockTopMenuSpan}
+              onClick={() => {
+                this.setState({
+                  authShow: false
+                });
+              }}
+            >
+              H
+            </span>
           </div>
 
           { this.state.authCorrect === false ? (
